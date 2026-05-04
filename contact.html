@@ -12,9 +12,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..600&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
   <link rel="icon" type="image/svg+xml" href="assets/mark-chevron.svg">
-
-  <!-- Calendly embed - uncomment when Calendly account is provisioned -->
-  <!-- <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet"> -->
 </head>
 <body>
 
@@ -50,21 +47,9 @@
   <div class="container">
     <div class="contact-grid">
 
-      <!-- Calendar / Form -->
       <div class="fade-in">
         <h2 style="margin-bottom: 2rem;">Pick a time.</h2>
 
-        <!-- CALENDLY EMBED PLACEHOLDER
-             Replace this block with the actual Calendly inline widget once
-             the Calendly account is provisioned. Suggested embed:
-
-             <div class="calendly-inline-widget"
-                  data-url="https://calendly.com/pinnaclestrat/strategic-snapshot"
-                  style="min-width:320px;height:700px;"></div>
-             <script type="text/javascript"
-                     src="https://assets.calendly.com/assets/external/widget.js"
-                     async></script>
-        -->
         <div class="calendly-placeholder">
           <h3>Booking calendar coming soon.</h3>
           <p style="margin: 0 auto 1.5rem; max-width: 40ch;">
@@ -76,17 +61,16 @@
           </a>
         </div>
 
-        <!-- Optional contact form fallback -->
         <div style="margin-top: 3rem;">
           <h3 style="font-family: 'Fraunces', serif; font-size: 1.5rem; margin-bottom: 1.5rem;">Or send a quick note.</h3>
-          <form class="contact-form" action="mailto:info@pinnaclestrat.com" method="post" enctype="text/plain">
+          <form class="contact-form" action="https://formspree.io/f/YOUR_FORM_ID_HERE" method="POST">
             <div>
               <label for="name">Name</label>
               <input type="text" id="name" name="name" required>
             </div>
             <div>
               <label for="email">Email</label>
-              <input type="email" id="email" name="email" required>
+              <input type="email" id="email" name="_replyto" required>
             </div>
             <div>
               <label for="company">Company</label>
@@ -106,7 +90,6 @@
         </div>
       </div>
 
-      <!-- Contact info -->
       <div class="fade-in delay-1">
         <h2 style="margin-bottom: 2rem;">Direct line.</h2>
         <div class="contact-info">
