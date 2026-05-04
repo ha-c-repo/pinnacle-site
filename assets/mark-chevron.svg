@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 70" fill="none" stroke-width="6" stroke-linecap="square" stroke-linejoin="miter">
+  <!-- Top chevron - gold -->
+  <polyline points="15,30 50,8 85,30" stroke="#C9A961"/>
+  <!-- Middle chevron - navy -->
+  <polyline points="20,46 50,24 80,46" stroke="#0A1F3D"/>
+  <!-- Bottom chevron - navy -->
+  <polyline points="25,62 50,40 75,62" stroke="#0A1F3D"/>
+</svg>

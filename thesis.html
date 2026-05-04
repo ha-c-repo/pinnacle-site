@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Strategy is not a document. | Pinnacle Strategic Advisory</title>
+  <meta name="description" content="Most SMB strategy work is written for the meeting it gets presented in, not the company it gets executed by. Matthew S. Cruz on what Pinnacle does differently.">
+  <meta name="theme-color" content="#0a1f3d">
+
+  <meta property="og:title" content="Strategy is not a document.">
+  <meta property="og:description" content="Most SMB strategy work is written for the meeting it gets presented in, not the company it gets executed by. The thesis behind Pinnacle Strategic Advisory.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://pinnaclestrat.com/thesis.html">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..600&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" type="image/svg+xml" href="assets/mark-chevron.svg">
+
+  <style>
+    .essay-hero { padding-top: clamp(3rem, 6vw, 5rem); padding-bottom: 2rem; }
+    .essay-hero .eyebrow { color: var(--gold-500); margin-bottom: 1rem; }
+    .essay-hero h1 {
+      font-size: clamp(2.4rem, 5vw, 4rem);
+      line-height: 1.05;
+      margin-bottom: 1.25rem;
+      max-width: 18ch;
+      font-style: italic;
+      font-variation-settings: 'opsz' 144, 'SOFT' 30, 'WONK' 1;
+    }
+    .essay-meta {
+      font-size: 0.85rem;
+      color: var(--ink-mute);
+      letter-spacing: 0.04em;
+      padding-top: 1.25rem;
+      border-top: 1px solid var(--rule);
+      max-width: 42rem;
+    }
+    .essay-meta strong { color: var(--navy-900); font-weight: 600; }
+    .essay-body {
+      max-width: 38rem;
+      margin: 0 auto;
+      padding: 1rem 0 4rem;
+    }
+    .essay-body > p,
+    .essay-body > h2,
+    .essay-body > h3,
+    .essay-body > ul {
+      max-width: 38rem;
+    }
+    .essay-body p {
+      font-size: 1.13rem;
+      line-height: 1.65;
+      color: var(--ink-soft);
+      margin-bottom: 1.4rem;
+      hanging-punctuation: first last;
+    }
+    .essay-body p.lede {
+      font-size: 1.3rem;
+      line-height: 1.55;
+      color: var(--navy-900);
+      font-weight: 500;
+      margin-bottom: 2rem;
+    }
+    .essay-body p.dropcap::first-letter {
+      font-family: 'Fraunces', serif;
+      font-style: italic;
+      font-size: 4.2rem;
+      line-height: 0.9;
+      float: left;
+      padding: 0.5rem 0.6rem 0 0;
+      color: var(--gold-500);
+      font-weight: 400;
+    }
+    .essay-body h2 {
+      font-family: 'Fraunces', serif;
+      font-style: italic;
+      font-size: clamp(1.6rem, 2.8vw, 2.1rem);
+      font-weight: 400;
+      color: var(--navy-900);
+      margin-top: 3.5rem;
+      margin-bottom: 1.25rem;
+      line-height: 1.2;
+    }
+    .essay-body h2 .num {
+      font-style: normal;
+      color: var(--gold-500);
+      font-size: 0.7em;
+      letter-spacing: 0.06em;
+      display: block;
+      margin-bottom: 0.4rem;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+    .essay-body ul {
+      margin: 1rem 0 1.75rem;
+      padding-left: 0;
+      list-style: none;
+    }
+    .essay-body ul li {
+      font-size: 1.05rem;
+      line-height: 1.55;
+      color: var(--ink-soft);
+      margin-bottom: 0.85rem;
+      padding-left: 1.75rem;
+      position: relative;
+    }
+    .essay-body ul li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0.65rem;
+      width: 8px;
+      height: 1px;
+      background: var(--gold-500);
+    }
+    .essay-body ul li strong { color: var(--navy-900); font-weight: 600; }
+    .essay-divider {
+      border: none;
+      border-top: 1px solid var(--rule);
+      max-width: 4rem;
+      margin: 2.5rem auto;
+    }
+    .essay-pullquote {
+      font-family: 'Fraunces', serif;
+      font-style: italic;
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      line-height: 1.3;
+      color: var(--navy-900);
+      padding: 1.5rem 0;
+      border-left: 3px solid var(--gold-500);
+      padding-left: 1.75rem;
+      margin: 2.5rem 0;
+      max-width: 36rem;
+    }
+    .essay-signoff {
+      margin-top: 3.5rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--rule);
+      font-size: 0.95rem;
+      color: var(--ink-mute);
+    }
+    .essay-signoff strong {
+      display: block;
+      font-family: 'Fraunces', serif;
+      font-size: 1.15rem;
+      color: var(--navy-900);
+      font-style: italic;
+      font-weight: 400;
+      margin-bottom: 0.2rem;
+    }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <nav class="nav" aria-label="Primary">
+    <a href="index.html" class="brand"><span class="brand-mark"><img src="assets/mark-chevron.svg" alt=""></span><span>PINNACLE</span></a>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="process.html">Method</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html" class="nav-cta">Book Snapshot</a></li>
+    </ul>
+    <button class="menu-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-links">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+</header>
+
+<main>
+
+<section class="essay-hero">
+  <div class="container">
+    <span class="eyebrow fade-in">The Pinnacle Thesis</span>
+    <h1 class="fade-in delay-1">Strategy is not a document.</h1>
+    <div class="essay-meta fade-in delay-2">
+      <strong>Matthew S. Cruz</strong> &middot; Founder &amp; Principal &middot; Houston, TX
+    </div>
+  </div>
+</section>
+
+<article class="essay-body container">
+
+  <p class="lede fade-in">
+    Most SMB strategy work is written for presentations, not execution. That is the problem I am trying to fix.
+  </p>
+
+  <p class="dropcap fade-in">
+    I have run a 12-person structural steel fabrication shop in Houston for nine years. I bid against firms ten times our size every week. I have written my own pricing model, my own bid logic, my own AI operating layer. I have also seen what most strategy advisors hand small and mid-size businesses, because Houston owners share documents with each other, and what gets shared back is consistent.
+  </p>
+
+  <p class="fade-in">
+    It is almost always a beautiful PDF. It almost always sits in a drawer.
+  </p>
+
+  <p class="fade-in">
+    The reason is structural. Most strategy work for SMBs is written for the room it gets presented in, not for the business that has to live inside it. The deliverable is the deliverable. Execution is somebody else's problem.
+  </p>
+
+  <p class="fade-in">
+    That is the thing I am trying to fix with Pinnacle.
+  </p>
+
+  <p class="fade-in">
+    This is not a critique of MBB firms. McKinsey, Bain, and BCG do excellent work for the audiences they serve. The problem is that the playbook does not transplant downward cleanly. A Fortune 500 has a strategy department, an analytics team, a project management office, and a budget for change management. A $5M owner-led business has the owner. The owner reads the deck on a Tuesday, runs payroll on Friday, and the strategy never moves.
+  </p>
+
+  <p class="fade-in">
+    If the argument I am about to make lands, the rest of the conversation is easy. If it does not land, you should hire someone else, and that is fine.
+  </p>
+
+  <hr class="essay-divider">
+
+  <h2 class="fade-in"><span class="num">Pattern One</span>The pricing problem dressed up as a growth problem.</h2>
+
+  <p class="fade-in">
+    The most common pattern I see is an owner who walks in and says "we need to grow."
+  </p>
+
+  <p class="fade-in">
+    In a typical first conversation, the owner spends forty minutes on the growth question. The company has been flat for two years. They are thinking about hiring a sales director. They want help building a marketing plan.
+  </p>
+
+  <p class="fade-in">
+    The actual problem is almost always margin. Pricing has not moved with the cost base. Gross margin has drifted from 28% to 19% over four years. Every new dollar of revenue at 19% margin is a dollar of distraction, not a dollar of progress.
+  </p>
+
+  <blockquote class="essay-pullquote fade-in">
+    You do not need a growth strategy when your unit economics are broken. You need a pricing rebuild.
+  </blockquote>
+
+  <p class="fade-in">
+    This pattern repeats across industries. Healthcare practices that stopped raising rates because referrers complained. Professional services firms that have not repriced senior time in three years. Manufacturing shops that quoted a job in 2022 and never updated the rate card. Retailers competing on price with companies the size of Amazon.
+  </p>
+
+  <p class="fade-in">
+    If you cannot tell me what your gross margin is by service line, by customer segment, and by quarter for the last three years, you do not have a growth problem. You have a pricing visibility problem. Fix that first. Everything else gets easier.
+  </p>
+
+  <h2 class="fade-in"><span class="num">Pattern Two</span>The brand problem that is actually a model problem.</h2>
+
+  <p class="fade-in">
+    The second pattern is harder to spot because it sounds reasonable when the owner says it.
+  </p>
+
+  <p class="fade-in">
+    "Our brand needs a refresh. We have outgrown our original look. We need to position differently."
+  </p>
+
+  <p class="fade-in">
+    Sometimes that is true. A real brand repositioning is one of the highest-leverage things a mature SMB can do. Pinnacle does brand repositioning. I am not arguing against the discipline.
+  </p>
+
+  <p class="fade-in">
+    But more often, the owner is mistaking a structural problem for a perception problem. The brand has not aged out of the market. The business model has aged out of itself. The customer has changed. The cost structure has changed. The competitive set has changed. The brand still works fine. It is the model underneath the brand that is broken.
+  </p>
+
+  <blockquote class="essay-pullquote fade-in">
+    Repainting the truck does not fix the route.
+  </blockquote>
+
+  <p class="fade-in">
+    The diagnostic question I ask is straightforward. If we doubled the marketing budget tomorrow, would the business be more profitable in twelve months. If the answer is yes, you have a brand and demand-generation problem. Spend the money on positioning. If the answer is no or unclear, you have a model problem dressed up as a brand problem. Spend the money on rebuilding the model first.
+  </p>
+
+  <p class="fade-in">
+    A six-figure rebrand on top of a model that cannot absorb more demand is an expensive way to find out what you needed all along. Same volume, prettier logo, same margin. I have watched it happen. I do not want to be the firm that runs that engagement for you.
+  </p>
+
+  <h2 class="fade-in"><span class="num">Pattern Three</span>Strategy from people who have never paid a payroll.</h2>
+
+  <p class="fade-in">
+    The third pattern is the one I feel most strongly about.
+  </p>
+
+  <p class="fade-in">
+    Most strategy advice for SMBs is written by people who have never paid a payroll. Never lost a key client on the 25th of the month with a check due on the 30th. Never had to call a banker about a covenant. Never had to walk into the shop on a Monday morning and tell the team a job got pulled.
+  </p>
+
+  <p class="fade-in">
+    The advice is always too clean.
+  </p>
+
+  <p class="fade-in">
+    Real operating decisions are made under constraints that do not show up in slide decks. The bank wants the covenant met. The largest customer wants a 12% discount. The shop foreman just gave notice. The truck broke. Cash will be tight in 60 days. The strategy that gets written without those constraints in mind is a strategy you cannot execute.
+  </p>
+
+  <p class="fade-in">
+    Pinnacle's recommendation on a 30-day Strategic Plan always traces back to constraints I have specifically asked about. Cash conversion cycle. Customer concentration. Owner dependency. Decision velocity. Ability to hire. Ability to absorb change. The three strategic options we model for every client are options we believe the client can actually run, not options that look good on the page.
+  </p>
+
+  <p class="fade-in">
+    That is the bar. If we cannot defend an option as something you could start on Monday, it does not go in the deck.
+  </p>
+
+  <hr class="essay-divider">
+
+  <h2 class="fade-in"><span class="num">The Method</span>What Pinnacle does differently.</h2>
+
+  <p class="fade-in">
+    The Pinnacle Method has four phases. They are simple on purpose.
+  </p>
+
+  <p class="fade-in">
+    <strong>Diagnose.</strong> Two weeks. We read the actual numbers, not the pitch deck. Three years of P&amp;L by quarter. Customer concentration analysis. Margin trends by segment. Operating cycle. Working capital. Org structure. The first deliverable is a written diagnosis that names the structural problems by their real names. If the diagnosis is wrong, everything that follows is wrong, so we spend the time here.
+  </p>
+
+  <p class="fade-in">
+    <strong>Decide.</strong> One week. We model three materially different strategic directions, each with its own financial projection, capital requirement, timeline, and risk profile. The owner picks the one they will actually run, with our recommendation on the table but not in the way. Three options, financially modeled, operator-tested. No single-path consultant pitch.
+  </p>
+
+  <p class="fade-in">
+    <strong>Design.</strong> One week. The selected direction becomes a 24-month roadmap with named owners, quarterly milestones, capital deployments, hiring plans, and a KPI dashboard. The plan is written in the operator's language. The owner can hand it to a banker, a board, or a key hire and have it read like the operator wrote it, because functionally we wrote it together.
+  </p>
+
+  <p class="fade-in">
+    <strong>Deploy.</strong> First 30 days of execution included. We do not hand over a plan and disappear. The first 30 days is when plans die. We stay engaged through early implementation, surface what is and is not working, and revise on contact with reality.
+  </p>
+
+  <p class="fade-in">
+    Four weeks from kickoff to plan. Plus 30 days of implementation support. That is the engagement. $18K to $45K depending on complexity, deferred under the First 100 program.
+  </p>
+
+  <h2 class="fade-in"><span class="num">The Filter</span>What Pinnacle is wrong for.</h2>
+
+  <p class="fade-in">
+    This is the section every honest advisory firm includes and most do not.
+  </p>
+
+  <p class="fade-in">Pinnacle is wrong for:</p>
+
+  <ul class="fade-in">
+    <li><strong>Pre-revenue startups.</strong> I do not advise on businesses that do not yet have a P&amp;L. The methodology requires real numbers.</li>
+    <li><strong>Fortune 500.</strong> I am one principal. Three engagements at a time. If you need a global rollout, hire MBB.</li>
+    <li><strong>Owners who want validation, not analysis.</strong> The diagnosis sometimes says the business is not where the owner thinks it is. If you are not willing to hear that, the engagement will not work.</li>
+    <li><strong>Owners who will not share real numbers.</strong> I cannot help you build a strategy if I do not know your gross margin, your cash position, and your customer concentration. The Snapshot call surfaces this fast. If the trust is not there, we should not work together.</li>
+    <li><strong>Businesses where the owner is the bottleneck and will not admit it.</strong> This is the hardest one to say out loud. Sometimes the strategic problem is the operator. The plan cannot fix that. The owner has to.</li>
+  </ul>
+
+  <p class="fade-in">
+    If any of those describe your situation, I will tell you on the Snapshot call. I would rather lose a Tier 2 engagement than take one that will not work.
+  </p>
+
+  <hr class="essay-divider">
+
+  <h2 class="fade-in"><span class="num">The Close</span>How to start.</h2>
+
+  <p class="fade-in">
+    The Strategic Snapshot is free. Ninety minutes. No contract, no NDA, no intake form. You bring your situation. I bring nine years of operating in Houston. We have a real conversation. At the end I tell you, plainly, whether and how Pinnacle can help.
+  </p>
+
+  <p class="fade-in">
+    If we agree there is a fit, the next step is the 30-day Strategic Plan under the First 100 program. Zero upfront. You pay when satisfied. That is not marketing language. That is the actual contract.
+  </p>
+
+  <p class="fade-in">
+    If we agree there is not a fit, you keep what you learned in the Snapshot, no obligation, and I keep my time available for the next conversation that fits.
+  </p>
+
+  <p class="fade-in">
+    The link to book is on the Pinnacle site. I keep my own calendar.
+  </p>
+
+  <div class="essay-signoff fade-in">
+    <strong>Matthew S. Cruz</strong>
+    Founder &amp; Principal, Pinnacle Strategic Advisory
+  </div>
+
+  <div style="margin-top: 3rem; text-align: center;" class="fade-in">
+    <a href="contact.html" class="btn btn-primary">
+      Book Your Free Strategic Snapshot
+      <span class="arrow">&rarr;</span>
+    </a>
+  </div>
+
+</article>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <div class="footer-brand-mark"><img src="assets/mark-chevron-light.svg" alt="Pinnacle Strategic Advisory" style="width:38px;height:auto;margin-bottom:0.6rem;display:block;opacity:0.95;"></div>
+        <div class="footer-brand">PINNACLE</div>
+        <span class="footer-brand-full">Strategic Advisory</span>
+        <p class="footer-tag">Premium strategic advisory for owner-led businesses doing $1M to $50M. Houston, Texas.</p>
+        <p class="footer-tag" style="margin-top: 1rem; font-size: 0.78rem;">
+          8630 Fairbanks N. Houston Rd., Suite 102<br>
+          Houston, TX 77064<br>
+          (713) 277-5004
+        </p>
+      </div>
+      <div class="footer-col">
+        <h4>Practice</h4>
+        <ul>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="process.html">Method</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="thesis.html">Thesis</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Engage</h4>
+        <ul>
+          <li><a href="contact.html">Strategic Snapshot</a></li>
+          <li><a href="mailto:info@pinnaclestrat.com">info@pinnaclestrat.com</a></li>
+          <li><a href="tel:+17132775004">(713) 277-5004</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Connect</h4>
+        <ul>
+          <li><a href="https://www.linkedin.com/in/nanocubeusa/" rel="me" target="_blank">LinkedIn</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>&copy; <span id="year">2026</span> Pinnacle Strategic Advisory, LLC. All rights reserved.</div>
+      <div>Houston, TX</div>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>
