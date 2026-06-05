@@ -1,0 +1,128 @@
+/* ============================================================
+   Pinnacle Strategic Advisory - immersive.css
+   Theme overlay. Loads AFTER css/style.css on interior pages
+   (services, process, about, thesis, contact). Re-skins the
+   shared shell to a DOVA-level immersive feel on the existing
+   navy/gold/Fraunces+DM Sans brand. Markup, forms, the
+   diagnostic tool, and the essay all keep working.
+   ============================================================ */
+
+:root{
+  --im-navy-900:#0a1f3d; --im-navy-800:#102a52; --im-navy-700:#1c3b6e;
+  --im-gold-500:#c9a961; --im-gold-400:#d4b878; --im-gold-300:#e0c993;
+  --im-ease:cubic-bezier(.22,1,.36,1);
+}
+
+html{scroll-behavior:smooth}
+/* Keep content sections on their light canvas; dark lives in hero/nav/cta/footer */
+body{background:#ffffff}
+
+/* film grain helper for dark immersive blocks */
+.im-grain{position:relative}
+.im-grain::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.045;mix-blend-mode:overlay;z-index:0;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.im-grain > *{position:relative;z-index:1}
+
+/* ---------- utility bar (added markup) ---------- */
+.im-utility{background:#06162c;color:#9fb3d0;font-size:.72rem;letter-spacing:.04em;border-bottom:1px solid rgba(255,255,255,.06)}
+.im-utility .container{display:flex;justify-content:space-between;align-items:center;height:38px;max-width:1240px;margin:0 auto;padding:0 clamp(1.25rem,4vw,2.5rem)}
+.im-utility .badge{color:var(--im-gold-400);font-weight:600;text-transform:uppercase;letter-spacing:.14em}
+.im-utility a{color:#b9c8de;margin-left:22px}.im-utility a:hover{color:#fff}
+@media(max-width:680px){.im-utility .left{font-size:.62rem}.im-utility a{margin-left:12px}}
+
+/* ---------- header / nav re-skin ---------- */
+.site-header{position:sticky;top:0;z-index:60;background:transparent;border-bottom:0;transition:background .4s var(--im-ease),backdrop-filter .4s,box-shadow .4s,padding .4s var(--im-ease)}
+.site-header.scrolled{background:rgba(10,31,61,.82);backdrop-filter:blur(14px);box-shadow:0 1px 0 rgba(201,169,97,.18)}
+.site-header .nav{padding-top:1.4rem;padding-bottom:1.4rem;transition:padding .4s var(--im-ease)}
+.site-header.scrolled .nav{padding-top:.85rem;padding-bottom:.85rem}
+.site-header .brand{color:#fff}
+.site-header .brand span:last-child{letter-spacing:.3em;font-weight:600}
+.site-header .nav-links a{color:#dfe6f1}
+.site-header .nav-links a:hover,.site-header .nav-links a.active{color:#fff}
+.site-header .nav-links a:not(.nav-cta)::after{background:var(--im-gold-500)}
+.menu-toggle span{background:#fff}
+@media(max-width:880px){
+  .site-header .nav-links{background:var(--im-navy-900)}
+  .site-header .nav-links a{color:#eaf0fa}
+}
+
+/* gold-gradient primary/gold buttons */
+.btn-primary,.btn-gold{background:linear-gradient(180deg,var(--im-gold-400),var(--im-gold-500));color:#1a1305;border-color:transparent;box-shadow:0 6px 22px -8px rgba(201,169,97,.55);transition:transform .3s var(--im-ease),box-shadow .3s}
+.btn-primary:hover,.btn-gold:hover{transform:translateY(-2px);box-shadow:0 12px 30px -8px rgba(201,169,97,.75);color:#1a1305}
+.btn .arrow{transition:transform .3s var(--im-ease)}
+.btn:hover .arrow{transform:translateX(4px)}
+
+/* eyebrow with rule */
+.eyebrow{color:var(--im-gold-500);display:inline-flex;align-items:center;gap:14px}
+.eyebrow::before{content:"";width:30px;height:1px;background:var(--im-gold-500);opacity:.85}
+
+/* ---------- immersive page hero (services/about/contact/process) ---------- */
+.page-hero,.method-hero,.essay-hero{
+  position:relative;overflow:hidden;color:#eaf0fa;
+  background:radial-gradient(120% 90% at 82% 12%,rgba(201,169,97,.16),rgba(201,169,97,0) 46%),
+             radial-gradient(90% 90% at 8% 96%,rgba(28,59,110,.5),rgba(28,59,110,0) 55%),
+             linear-gradient(160deg,#0c2348 0%,#0a1f3d 48%,#071732 100%);
+  padding-top:clamp(5rem,10vw,8rem)!important;padding-bottom:clamp(3.5rem,7vw,5.5rem)!important;
+  margin-top:0;
+}
+.page-hero::before,.method-hero::before,.essay-hero::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.5;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 600' preserveAspectRatio='xMidYMid slice'%3E%3Cg stroke='%23c9a961' stroke-width='1' fill='none' opacity='0.12'%3E%3Cpath d='M-40 470 C 300 400 560 440 760 370 C 980 290 1180 330 1500 250'/%3E%3Cpath d='M-40 530 C 300 460 560 500 760 430 C 980 350 1180 390 1500 310'/%3E%3Cpath d='M-40 410 C 300 340 560 380 760 310 C 980 230 1180 270 1500 190'/%3E%3C/g%3E%3C/svg%3E");background-size:cover}
+.page-hero .container,.method-hero .container,.essay-hero .container{position:relative;z-index:2}
+.page-hero .eyebrow,.method-hero .eyebrow,.essay-hero .eyebrow{color:var(--im-gold-400)}
+.page-hero h1,.method-hero h1{color:#fff}
+.page-hero .lede,.method-hero .lede{color:#c3d2e8}
+.essay-hero h1{color:#fff}
+.essay-meta{color:#9fb3d0!important;border-top-color:rgba(255,255,255,.14)!important}
+.essay-meta strong{color:#fff!important}
+
+/* method table of contents chips */
+.method-toc a{border-color:rgba(255,255,255,.2);color:#cdd9ea;transition:border-color .3s,color .3s,background .3s}
+.method-toc a:hover{border-color:var(--im-gold-500);color:#fff;background:rgba(201,169,97,.12)}
+
+/* ---------- reveal motion (enhances existing .fade-in) ---------- */
+.fade-in{transition:opacity .8s var(--im-ease),transform .8s var(--im-ease)}
+
+/* ---------- card depth + hover on existing components ---------- */
+.question-card,.sample-card,.principal-card,.service-card{transition:transform .4s var(--im-ease),box-shadow .4s var(--im-ease),border-color .4s}
+.question-card:hover,.sample-card:hover,.service-card:hover{transform:translateY(-6px);box-shadow:0 26px 54px -28px rgba(10,31,61,.45)}
+.service-card{position:relative;overflow:hidden}
+.service-card::before{content:"";position:absolute;left:0;top:0;height:2px;width:100%;background:linear-gradient(90deg,var(--im-gold-500),transparent);opacity:0;transition:opacity .4s}
+.service-card:hover::before{opacity:1}
+.sample-thumb{overflow:hidden}
+.sample-thumb img{transition:transform .5s var(--im-ease)}
+.sample-card:hover .sample-thumb img{transform:scale(1.04)}
+
+/* phase blocks (process): gold index + subtle separation */
+.phase-num{color:var(--im-gold-500)}
+.phase-block{position:relative}
+.deliverable-box{border-left:2px solid var(--im-gold-500);background:rgba(201,169,97,.06)}
+
+/* principal card accent */
+.principal-card{border-top:3px solid var(--im-gold-500)}
+.principal-photo{background:linear-gradient(160deg,var(--im-navy-800),var(--im-navy-900));color:var(--im-gold-400)}
+
+/* diagnostic tool: gold focus + selected state */
+.diag-options label{transition:border-color .25s,background .25s}
+.diag-options label:hover{border-color:var(--im-gold-500)}
+.diag-options input:checked + span{color:var(--im-navy-900)}
+.diag-options label:has(input:checked){border-color:var(--im-gold-500);background:rgba(201,169,97,.08)}
+
+/* contact form focus states */
+.contact-form input:focus,.contact-form textarea:focus{outline:none;border-color:var(--im-gold-500);box-shadow:0 0 0 3px rgba(201,169,97,.16)}
+
+/* footer: ensure deep navy immersive */
+.site-footer{background:#06152b;border-top:1px solid rgba(255,255,255,.06)}
+
+/* dark CTA blocks keep gold glow */
+.cta-block{position:relative;overflow:hidden;background:linear-gradient(160deg,#0c2348,#071732)}
+.cta-block::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.32;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 500' preserveAspectRatio='xMidYMid slice'%3E%3Cg stroke='%23c9a961' fill='none' stroke-width='1.4' opacity='0.5'%3E%3Cpath d='M120 460 L720 120 L1320 460'/%3E%3Cpath d='M260 460 L720 200 L1180 460' opacity='.6'/%3E%3C/g%3E%3C/svg%3E");background-size:cover}
+.cta-block .container{position:relative;z-index:2}
+
+/* focus visibility (accessibility) */
+a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px solid var(--im-gold-500);outline-offset:3px}
+
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .question-card,.sample-card,.service-card{transition:none}
+}
