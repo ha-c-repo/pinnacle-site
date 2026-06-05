@@ -88,19 +88,39 @@ nav.links .nav-cta{padding:11px 20px}
 .hero-steps span:not(:last-child)::after{content:"";position:absolute;right:13px;top:50%;width:4px;height:4px;border-radius:50%;background:currentColor;transform:translateY(-50%);opacity:.5}
 .hero-progress{margin-top:18px;width:230px;height:2px;background:rgba(255,255,255,.12);position:relative}
 .hero-progress i{position:absolute;left:0;top:0;height:100%;width:0;background:linear-gradient(90deg,var(--gold-500),var(--gold-300))}
+/* 3D logo */
 .hero-art{position:relative;height:520px;display:flex;align-items:center;justify-content:center}
-.hero-art .glow{position:absolute;width:380px;height:380px;border-radius:50%;background:radial-gradient(circle,rgba(201,169,97,.30),rgba(201,169,97,0) 65%);filter:blur(6px)}
-.hero-art svg{position:relative;z-index:2;width:330px;height:auto;overflow:visible}
-.chev path{fill:none;stroke:var(--gold-500);stroke-width:7;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 0 10px rgba(201,169,97,.5))}
-.ascent-line{stroke:var(--gold-400);stroke-width:2.4;fill:none;opacity:.9}.spark{fill:var(--gold-300)}
+.hero-art .glow{position:absolute;width:380px;height:380px;border-radius:50%;background:radial-gradient(circle,rgba(201,169,97,.22),rgba(201,169,97,0) 65%);filter:blur(8px)}
+#logo3d{position:relative;z-index:2;width:min(440px,42vw);height:440px;cursor:grab}
+#logo3d canvas{display:block;width:100%!important;height:100%!important}
+.logo-fallback{position:absolute;z-index:2;width:300px}
+.logo-fallback path{fill:none;stroke:var(--gold-500);stroke-width:7;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 0 10px rgba(201,169,97,.5))}
 @media(max-width:900px){
   .hero{height:auto;min-height:100vh;padding:130px 0 80px}
   .hero-grid{grid-template-columns:1fr;gap:10px}
-  .hero-art{height:300px;order:-1}.hero-art svg{width:210px}
+  .hero-art{height:320px;order:-1}#logo3d{width:300px;height:320px}.logo-fallback{width:200px}
   .hero-stage{min-height:0;position:static}
   .hero-line{position:static;opacity:1;transform:none;margin-bottom:14px}
   .hero-line:not(:first-child){display:none}
 }
+
+/* ===== THE CLIMB (mountain scroll journey) ===== */
+.climb{position:relative;height:340vh;background:#040d1f}
+.climb-stage{position:sticky;top:0;height:100vh;overflow:hidden}
+.climb-mtn{position:absolute;left:0;top:0;width:100%;height:200vh;will-change:transform}
+.climb-mtn svg{width:100%;height:100%;display:block}
+.climb-copy{position:absolute;left:0;right:0;top:50%;transform:translateY(-50%);text-align:center;z-index:4;padding:0 24px;pointer-events:none}
+.climb-eyebrow{justify-content:center;color:var(--gold-400);margin-bottom:20px}
+.climb-line{position:relative;height:5.2rem}
+.climb-line span{position:absolute;left:0;right:0;color:#fff;font-family:"Fraunces";font-size:clamp(2rem,5vw,4rem);opacity:0;transform:translateY(18px);transition:opacity .6s var(--ease),transform .6s var(--ease)}
+.climb-line span.on{opacity:1;transform:none}
+.climb-hint{position:absolute;left:0;right:0;bottom:34px;text-align:center;z-index:4;color:#7f97bd;font-family:"DM Mono",monospace;font-size:.7rem;letter-spacing:.24em;text-transform:uppercase;transition:opacity .5s}
+.summit-glow{transform-box:fill-box;transform-origin:center;animation:summitPulse 2.6s var(--ease) infinite}
+@keyframes summitPulse{0%,100%{opacity:.5}50%{opacity:.95}}
+.climb-summit{width:min(300px,58vw);margin:0 auto 30px;opacity:0;will-change:opacity,transform}
+.climb-summit svg{width:100%;height:auto;overflow:visible;display:block}
+.climb-summit.dance{animation:summitDance 2.4s var(--ease) infinite}
+@keyframes summitDance{0%,100%{transform:translateY(0) scale(1) rotate(0deg)}25%{transform:translateY(-6px) scale(1.03) rotate(-1.5deg)}75%{transform:translateY(-2px) scale(1.02) rotate(1.5deg)}}
 
 section{position:relative}
 .sec-light{background:var(--cream);color:var(--ink)}
@@ -182,6 +202,9 @@ footer{background:#06152b;color:#9fb1cb;padding:80px 0 40px;border-top:1px solid
   .reveal,.rule-draw{opacity:1;transform:none;width:auto}
   .hero-line{position:static;opacity:1;transform:none}
   .hero-line:not(:first-child){display:none}
+  .climb{height:auto}.climb-stage{position:relative;height:auto;min-height:80vh}
+  .climb-line span{position:static;opacity:1;transform:none}.climb-line span:not(:first-child){display:none}
+  .climb-line{height:auto}
 }
 </style>
 </head>
@@ -234,12 +257,77 @@ footer{background:#06152b;color:#9fb1cb;padding:80px 0 40px;border-top:1px solid
     </div>
     <div class="hero-art" aria-hidden="true">
       <div class="glow"></div>
-      <svg viewBox="0 0 300 360" id="chevSvg">
-        <g class="chev"><path id="c1" d="M40 150 L150 60 L260 150"/><path id="c2" d="M40 215 L150 125 L260 215"/><path id="c3" d="M40 280 L150 190 L260 280"/></g>
-        <path class="ascent-line" id="ascent" d="M150 330 L150 250"/>
-        <circle class="spark" id="spark" cx="150" cy="250" r="4"/>
+      <div id="logo3d"></div>
+      <svg class="logo-fallback" viewBox="0 0 300 230"><g>
+        <path d="M40 90 L150 20 L260 90"/><path d="M40 150 L150 80 L260 150"/><path d="M40 210 L150 140 L260 210"/>
+      </g></svg>
+    </div>
+  </div>
+</section>
+
+<!-- THE CLIMB -->
+<section class="climb" id="climb" aria-label="The ascent to the pinnacle">
+  <div class="climb-stage">
+    <div class="climb-mtn" id="climbMtn">
+      <svg viewBox="0 0 1440 1800" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#03081a"/><stop offset="0.5" stop-color="#0a1f3d"/><stop offset="1" stop-color="#16335f"/>
+          </linearGradient>
+          <linearGradient id="peakG" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#16335f"/><stop offset="1" stop-color="#0a1f3d"/>
+          </linearGradient>
+          <radialGradient id="halo" cx="0.5" cy="0.5" r="0.5">
+            <stop offset="0" stop-color="rgba(224,201,147,0.6)"/><stop offset="1" stop-color="rgba(224,201,147,0)"/>
+          </radialGradient>
+          <filter id="soft" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="6"/></filter>
+        </defs>
+        <rect x="0" y="0" width="1440" height="1800" fill="url(#sky)"/>
+        <!-- stars -->
+        <g fill="#cde0ff" opacity="0.8">
+          <circle cx="180" cy="160" r="2"/><circle cx="420" cy="90" r="1.6"/><circle cx="900" cy="120" r="2.2"/>
+          <circle cx="1150" cy="200" r="1.6"/><circle cx="1300" cy="110" r="2"/><circle cx="640" cy="60" r="1.4"/>
+          <circle cx="300" cy="300" r="1.4"/><circle cx="1080" cy="60" r="1.4"/><circle cx="760" cy="240" r="1.6"/>
+        </g>
+        <!-- far ridge -->
+        <path d="M0 1250 L300 1050 L560 1180 L820 980 L1080 1150 L1440 1000 L1440 1800 L0 1800 Z" fill="#16335f" opacity="0.5"/>
+        <!-- mid ridge -->
+        <path d="M0 1420 L360 1230 L720 1380 L1040 1200 L1440 1360 L1440 1800 L0 1800 Z" fill="#102a52" opacity="0.7"/>
+        <!-- main peak -->
+        <path d="M-120 1800 L560 700 L720 250 L900 720 L1560 1800 Z" fill="url(#peakG)"/>
+        <!-- snow / gold cap -->
+        <g stroke="#c9a961" stroke-width="4" fill="none" opacity="0.85" stroke-linecap="round">
+          <path d="M640 470 L700 360 L720 320 L742 365 L800 470"/>
+          <path d="M672 420 L705 470 L735 430"/>
+        </g>
+        <!-- ascent trail -->
+        <path id="trail" d="M720 1700 L640 1520 L780 1380 L600 1200 L800 1040 L640 880 L760 700 L690 540 L724 380 L720 300" fill="none" stroke="#c9a961" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" opacity="0.95" filter="url(#soft)"/>
+        <path id="trail2" d="M720 1700 L640 1520 L780 1380 L600 1200 L800 1040 L640 880 L760 700 L690 540 L724 380 L720 300" fill="none" stroke="#e0c993" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle id="climber" cx="720" cy="1700" r="9" fill="#e0c993"/>
+        <circle id="climberGlow" cx="720" cy="1700" r="20" fill="url(#halo)"/>
       </svg>
     </div>
+    <div class="climb-copy">
+      <div class="climb-summit" id="summitWrap">
+        <svg viewBox="0 0 260 300" xmlns="http://www.w3.org/2000/svg">
+          <defs><radialGradient id="sglow" cx="0.5" cy="0.5" r="0.5"><stop offset="0" stop-color="rgba(224,201,147,0.65)"/><stop offset="1" stop-color="rgba(224,201,147,0)"/></radialGradient></defs>
+          <circle class="summit-glow" cx="130" cy="138" r="125" fill="url(#sglow)"/>
+          <g id="sparks" fill="#e0c993"></g>
+          <g fill="none" stroke="#c9a961" stroke-width="13" stroke-linecap="round" stroke-linejoin="round">
+            <polyline id="sc1" points="78,118 130,68 182,118"/>
+            <polyline id="sc2" points="64,160 130,104 196,160"/>
+            <polyline id="sc3" points="50,202 130,140 210,202"/>
+          </g>
+        </svg>
+      </div>
+      <span class="eyebrow climb-eyebrow">The Ascent</span>
+      <div class="climb-line" id="climbLine">
+        <span class="on" data-i="0">Every owner is climbing.</span>
+        <span data-i="1">Strategy is the map.</span>
+        <span data-i="2">Clarity. Direction. <em>Ascent</em>.</span>
+      </div>
+    </div>
+    <div class="climb-hint" id="climbHint">Scroll to climb</div>
   </div>
 </section>
 
@@ -381,27 +469,196 @@ footer{background:#06152b;color:#9fb1cb;padding:80px 0 40px;border-top:1px solid
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>
 document.getElementById('year').textContent=new Date().getFullYear();
+var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
 // mobile menu
 (function(){var t=document.getElementById('menuToggle'),l=document.getElementById('navLinks');if(t&&l){t.addEventListener('click',function(){var o=t.classList.toggle('open');l.classList.toggle('open');t.setAttribute('aria-expanded',o);});l.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){t.classList.remove('open');l.classList.remove('open');});});}})();
 // nav shrink
 var nav=document.getElementById('nav');addEventListener('scroll',function(){nav.classList.toggle('shrunk',scrollY>40)},{passive:true});
-var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
 // reveals
 var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}})},{threshold:.18});
 document.querySelectorAll('.reveal,.rule-draw').forEach(function(el){io.observe(el);});
-if(!reduce && window.gsap){
+
+/* ============ 3D LOGO (Three.js) ============ */
+function init3DLogo(){
+  var mount=document.getElementById('logo3d');
+  if(!mount||typeof THREE==='undefined') return false;
+  var renderer;
+  try{ renderer=new THREE.WebGLRenderer({alpha:true,antialias:true}); }catch(e){ return false; }
+  if(!renderer) return false;
+  var W=mount.clientWidth||400, H=mount.clientHeight||400;
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,2));
+  renderer.setSize(W,H);
+  if(THREE.sRGBEncoding) renderer.outputEncoding=THREE.sRGBEncoding;
+  mount.appendChild(renderer.domElement);
+
+  var scene=new THREE.Scene();
+  var camera=new THREE.PerspectiveCamera(36, W/H, 0.1, 100); camera.position.set(0,0,7.4);
+
+  // procedural environment for metallic reflections (navy -> gold)
+  try{
+    var pmrem=new THREE.PMREMGenerator(renderer);
+    var cv=document.createElement('canvas'); cv.width=16; cv.height=128;
+    var cx=cv.getContext('2d'); var g=cx.createLinearGradient(0,0,0,128);
+    g.addColorStop(0,'#21487f'); g.addColorStop(0.55,'#0a1f3d'); g.addColorStop(1,'#d9b873');
+    cx.fillStyle=g; cx.fillRect(0,0,16,128);
+    var et=new THREE.CanvasTexture(cv); et.mapping=THREE.EquirectangularReflectionMapping;
+    scene.environment=pmrem.fromEquirectangular(et).texture; et.dispose();
+  }catch(e){}
+
+  scene.add(new THREE.AmbientLight(0x2b405f,0.75));
+  var key=new THREE.DirectionalLight(0xfff1d2,2.3); key.position.set(4,6,6); scene.add(key);
+  var rim=new THREE.DirectionalLight(0x6f9bff,1.15); rim.position.set(-5,2,-4); scene.add(rim);
+  var pt=new THREE.PointLight(0xe0c993,1.4,50); pt.position.set(-3,-3,4); scene.add(pt);
+
+  var gold=new THREE.MeshStandardMaterial({color:0xc9a961,metalness:0.97,roughness:0.26,emissive:0x2a1d07,emissiveIntensity:0.55});
+  gold.transparent=true; gold.opacity=0;
+
+  function makeChevron(){
+    var grp=new THREE.Group();
+    var sx=1.0, hy=0.6, th=0.30, dp=0.36;
+    var ang=Math.atan2(hy,sx); var L=Math.sqrt(sx*sx+hy*hy)+th*0.55;
+    var geo=new THREE.BoxGeometry(L,th,dp);
+    var left=new THREE.Mesh(geo,gold); left.position.set(-sx/2,hy/2,0); left.rotation.z=ang; grp.add(left);
+    var right=new THREE.Mesh(geo,gold); right.position.set(sx/2,hy/2,0); right.rotation.z=-ang; grp.add(right);
+    return grp;
+  }
+  var pivot=new THREE.Group(); scene.add(pivot);
+  var mark=new THREE.Group(); pivot.add(mark);
+  var levels=[0.98,0,-0.98];
+  var chevs=levels.map(function(y){ var ch=makeChevron(); ch.position.y=y; ch.userData.home=y; mark.add(ch); return ch; });
+  mark.scale.set(1.3,1.3,1.3);
+
+  // glow sprite
+  var glow=null;
+  try{
+    var gc=document.createElement('canvas'); gc.width=gc.height=128; var gx=gc.getContext('2d');
+    var rg=gx.createRadialGradient(64,64,0,64,64,64); rg.addColorStop(0,'rgba(224,201,147,0.5)'); rg.addColorStop(1,'rgba(224,201,147,0)');
+    gx.fillStyle=rg; gx.fillRect(0,0,128,128);
+    var gt=new THREE.CanvasTexture(gc);
+    glow=new THREE.Sprite(new THREE.SpriteMaterial({map:gt,blending:THREE.AdditiveBlending,transparent:true,depthWrite:false,opacity:0}));
+    glow.scale.set(8,8,1); glow.position.z=-1.2; scene.add(glow);
+  }catch(e){}
+
+  // intro: scatter then assemble + spin
+  chevs.forEach(function(ch){
+    ch.position.x=(Math.random()*2-1)*5.5;
+    ch.position.z=-13-Math.random()*6;
+    ch.position.y=ch.userData.home+(Math.random()*2-1)*4;
+    ch.rotation.x=(Math.random()*2-1)*3; ch.rotation.y=(Math.random()*2-1)*3;
+  });
+  var idle=false;
+  if(typeof gsap!=='undefined'){
+    var tl=gsap.timeline();
+    tl.to(gold,{opacity:1,duration:0.7,ease:'power2.out'},0.05);
+    chevs.forEach(function(ch,i){
+      tl.to(ch.position,{x:0,y:ch.userData.home,z:0,duration:1.5,ease:'back.out(1.7)'},0.1+i*0.13);
+      tl.to(ch.rotation,{x:0,y:0,duration:1.5,ease:'power3.out'},0.1+i*0.13);
+    });
+    tl.fromTo(mark.rotation,{y:-Math.PI*3.2},{y:0,duration:2.3,ease:'power3.out'},0);
+    if(glow){ tl.fromTo(glow.material,{opacity:0},{opacity:0.7,duration:1,ease:'power2.out'},0.2); }
+    tl.eventCallback('onComplete',function(){ idle=true; gold.transparent=false; });
+  } else { gold.opacity=1; chevs.forEach(function(ch){ch.position.set(0,ch.userData.home,0);ch.rotation.set(0,0,0);}); idle=true; }
+
+  // pointer parallax
+  var tX=0,tY=0,cX=0,cY=0;
+  mount.addEventListener('pointermove',function(e){ var r=mount.getBoundingClientRect(); tX=((e.clientX-r.left)/r.width-0.5); tY=((e.clientY-r.top)/r.height-0.5); });
+  mount.addEventListener('pointerleave',function(){ tX=0; tY=0; });
+
+  var clock=new THREE.Clock();
+  function loop(){
+    requestAnimationFrame(loop);
+    var t=clock.getElapsedTime();
+    cX+=(tX-cX)*0.06; cY+=(tY-cY)*0.06;
+    if(idle){ mark.rotation.y+=0.005; }
+    pivot.rotation.y=cX*0.6;
+    pivot.rotation.x=Math.sin(t*0.7)*0.05 + cY*0.5;
+    pivot.position.y=Math.sin(t*0.9)*0.06;
+    if(glow && idle){ glow.material.opacity=0.55+Math.sin(t*1.7)*0.14; }
+    renderer.render(scene,camera);
+  }
+  loop();
+  window.addEventListener('resize',function(){ var w=mount.clientWidth,h=mount.clientHeight; if(!w||!h) return; renderer.setSize(w,h); camera.aspect=w/h; camera.updateProjectionMatrix(); });
+
+  var fb=mount.parentElement.querySelector('.logo-fallback'); if(fb) fb.style.display='none';
+  return true;
+}
+
+/* ============ scroll choreography ============ */
+if(!reduce && typeof gsap!=='undefined' && typeof ScrollTrigger!=='undefined'){
   gsap.registerPlugin(ScrollTrigger);
-  ['c1','c2','c3'].forEach(function(id,i){var p=document.getElementById(id),L=p.getTotalLength();p.style.strokeDasharray=L;p.style.strokeDashoffset=L;gsap.to(p,{strokeDashoffset:0,duration:1.1,delay:.3+i*.22,ease:'power2.out'});});
-  var lines=[].slice.call(document.querySelectorAll('.hero-line')),steps=[].slice.call(document.querySelectorAll('#steps span')),hprog=document.getElementById('hprog'),ascent=document.getElementById('ascent'),spark=document.getElementById('spark');
+
+  // HERO staged headline pin
+  var lines=[].slice.call(document.querySelectorAll('.hero-line')),
+      steps=[].slice.call(document.querySelectorAll('#steps span')),
+      hprog=document.getElementById('hprog');
   function setStage(i){lines.forEach(function(l,k){l.classList.toggle('is-on',k===i);});steps.forEach(function(s,k){s.classList.toggle('on',k<=i);});}
   if(window.innerWidth>900){
-    ScrollTrigger.create({trigger:'#hero',start:'top top',end:'+=240%',pin:true,scrub:.6,onUpdate:function(self){var p=self.progress;hprog.style.width=(p*100)+'%';setStage(Math.min(2,Math.floor(p*3+0.0001)));ascent.setAttribute('d','M150 330 L150 '+(250-(p*120)));spark.setAttribute('cy',250-(p*120));}});
+    ScrollTrigger.create({trigger:'#hero',start:'top top',end:'+=200%',pin:true,scrub:.6,onUpdate:function(self){var p=self.progress;hprog.style.width=(p*100)+'%';setStage(Math.min(2,Math.floor(p*3+0.0001)));}});
   }
-  var phases=[].slice.call(document.querySelectorAll('.mphase')),railfill=document.getElementById('railfill');
+
+  // THE CLIMB
+  (function(){
+    var mtn=document.getElementById('climbMtn');
+    var trail=document.getElementById('trail'), trail2=document.getElementById('trail2');
+    var climber=document.getElementById('climber'), climberGlow=document.getElementById('climberGlow');
+    var summitWrap=document.getElementById('summitWrap');
+    var sc1=document.getElementById('sc1'), sc2=document.getElementById('sc2'), sc3=document.getElementById('sc3');
+    var sparks=document.getElementById('sparks');
+    var clines=[].slice.call(document.querySelectorAll('#climbLine span'));
+    var hint=document.getElementById('climbHint');
+    if(!mtn||!trail) return;
+    var len=trail.getTotalLength();
+    trail.style.strokeDasharray=len; trail.style.strokeDashoffset=len;
+    trail2.style.strokeDasharray=len; trail2.style.strokeDashoffset=len;
+    // build sparks
+    var SP=14, sp=[];
+    for(var i=0;i<SP;i++){ var c=document.createElementNS('http://www.w3.org/2000/svg','circle'); c.setAttribute('r',(1.5+Math.random()*2.5).toFixed(1)); c.setAttribute('cx','130'); c.setAttribute('cy','138'); sparks.appendChild(c); sp.push({el:c,a:(i/SP)*Math.PI*2,d:55+Math.random()*80}); }
+    var cx0=130, cy0=138;
+    function setClimbStage(i){clines.forEach(function(s,k){s.classList.toggle('on',k===i);});}
+
+    ScrollTrigger.create({
+      trigger:'#climb', start:'top top', end:'bottom bottom', scrub:0.5,
+      onUpdate:function(self){
+        var p=self.progress;
+        // pan up the mountain: -50% (base) -> 0% (summit)
+        mtn.style.transform='translateY('+(-50+50*p)+'%)';
+        // draw trail
+        trail.style.strokeDashoffset=len*(1-p);
+        trail2.style.strokeDashoffset=len*(1-p);
+        // climber follows trail
+        var pt=trail.getPointAtLength(Math.min(1,p)*len);
+        climber.setAttribute('cx',pt.x); climber.setAttribute('cy',pt.y);
+        climberGlow.setAttribute('cx',pt.x); climberGlow.setAttribute('cy',pt.y);
+        climber.style.opacity = p>0.985?0:1; climberGlow.style.opacity=climber.style.opacity;
+        // headline stage
+        setClimbStage(p<0.4?0:(p<0.8?1:2));
+        hint.style.opacity = p>0.06?0:1;
+        // summit burst (centered overlay)
+        var e=Math.max(0,Math.min(1,(p-0.74)/0.26));
+        var burst=Math.sin(e*Math.PI); // 0 -> 1 -> 0 (explode then snap together)
+        summitWrap.style.opacity = Math.max(0,Math.min(1,(p-0.72)/0.08)).toFixed(3);
+        if(p>0.965){ summitWrap.classList.add('dance'); } else { summitWrap.classList.remove('dance'); }
+        function tf(el,dx,dy,rot){ el.setAttribute('transform','translate('+(dx*burst).toFixed(1)+','+(dy*burst).toFixed(1)+') rotate('+(rot*burst).toFixed(1)+' '+cx0+' '+cy0+')'); }
+        tf(sc1, 0, -64, -16);
+        tf(sc2, -80, 30, 20);
+        tf(sc3, 80, 30, -20);
+        for(var k=0;k<sp.length;k++){ var s=sp[k]; var dx=Math.cos(s.a)*s.d*burst, dy=Math.sin(s.a)*s.d*burst; s.el.setAttribute('cx',(cx0+dx).toFixed(1)); s.el.setAttribute('cy',(cy0+dy).toFixed(1)); s.el.setAttribute('opacity',burst.toFixed(2)); }
+      }
+    });
+  })();
+
+  // METHOD rail
+  var phases=[].slice.call(document.querySelectorAll('.mphase')),
+      railfill=document.getElementById('railfill');
   ScrollTrigger.create({trigger:'#method',start:'top center',end:'bottom center',scrub:.5,onUpdate:function(self){railfill.style.height=(self.progress*100)+'%';var i=Math.min(3,Math.floor(self.progress*4));phases.forEach(function(ph,k){ph.classList.toggle('on',k<=i);});}});
 }
+
+// init 3D logo (after a tick so layout is settled)
+if(!reduce){ setTimeout(function(){ try{ init3DLogo(); }catch(e){} }, 60); }
 </script>
 </body>
 </html>
