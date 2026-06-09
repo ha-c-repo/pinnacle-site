@@ -76,7 +76,7 @@ jobs:
           # 1) REST root validates the key and that PostgREST is up.
           root=$(curl -sS -o /dev/null -w '%{http_code}' \
             -H "apikey: ${SUPABASE_ANON_KEY}" \
-            "${base}/rest/v1/")
+            "${base}/rest/v1/progress?select=user_id&limit=1")
           echo "REST root HTTP ${root}"
           if [ "${root}" != "200" ]; then
             echo "Supabase REST root not healthy (expected 200). Bad key or project down."
