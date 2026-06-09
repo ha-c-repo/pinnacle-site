@@ -1,0 +1,131 @@
+# ============================================================
+#  PINNACLE TRAINING  ·  SUPABASE KEEP-ALIVE + BACKUP   (C-D / S9)
+#
+#  Place this file at:  .github/workflows/keepalive.yml
+#  in the pinnaclestrat.com GitHub Pages repo (the repo Cowork built).
+#  It does NOT go in the Netlify deploy (keep it out of the portal
+#  deploy folder).
+#
+#  Why it exists:
+#    1. Keep-alive. A free-tier Supabase project pauses after about
+#       7 days of inactivity. This pings it twice a week so it never
+#       sleeps and trainees never hit a paused project.
+#    2. Backup. The free tier has no automatic backups, and the
+#       certification rows (progress, profiles) are the system of
+#       record. This takes a periodic logical dump and stores it as
+#       a workflow artifact (kept out of the repo, so no trainee PII
+#       is committed).
+#
+#  Repo secrets (GitHub -> Settings -> Secrets and variables ->
+#  Actions -> New repository secret):
+#    SUPABASE_URL       REQUIRED. Project URL from S2,
+#                       e.g. https://abcdefghijkl.supabase.co
+#    SUPABASE_ANON_KEY  REQUIRED. The publishable key from S2
+#                       (sb_publishable_...). Low privilege; used
+#                       only to make a read request. Never the
+#                       sb_secret_ key.
+#    SUPABASE_DB_URL    OPTIONAL. Postgres connection string from
+#                       Supabase -> Project Settings -> Database ->
+#                       Connection string (use the Session pooler or
+#                       Direct connection, NOT the transaction
+#                       pooler, so pg_dump can run). Enables the
+#                       backup step. If unset, only keep-alive runs.
+#                       This is a DATABASE credential, separate from
+#                       the sb_secret_ API key; store it only here,
+#                       never in any committed file.
+#
+#  Note on GitHub's own behavior: GitHub disables scheduled
+#  workflows in a repo after ~60 days with no repository activity
+#  (no commits). For an otherwise static Pages repo, push any commit
+#  (or run this workflow from the Actions tab via "Run workflow")
+#  at least every ~60 days to keep the schedule live.
+# ============================================================
+
+name: Supabase keep-alive and backup
+
+on:
+  schedule:
+    # Twice a week: Monday and Thursday at 14:17 UTC. Gaps of 3 and 4
+    # days stay well under the ~7-day pause window. Off-the-hour to
+    # dodge GitHub's busy scheduling minutes. Cron is always UTC.
+    - cron: '17 14 * * 1,4'
+  workflow_dispatch: {}   # allow a manual run from the Actions tab
+
+concurrency:
+  group: supabase-keepalive
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  keepalive-and-backup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping Supabase (keeps the project awake)
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+        run: |
+          set -euo pipefail
+          if [ -z "${SUPABASE_URL:-}" ] || [ -z "${SUPABASE_ANON_KEY:-}" ]; then
+            echo "Missing SUPABASE_URL or SUPABASE_ANON_KEY secret."; exit 1
+          fi
+          base="${SUPABASE_URL%/}"
+
+          # 1) REST root validates the key and that PostgREST is up.
+          root=$(curl -sS -o /dev/null -w '%{http_code}' \
+            -H "apikey: ${SUPABASE_ANON_KEY}" \
+            "${base}/rest/v1/")
+          echo "REST root HTTP ${root}"
+          if [ "${root}" != "200" ]; then
+            echo "Supabase REST root not healthy (expected 200). Bad key or project down."
+            exit 1
+          fi
+
+          # 2) A real table query so the database itself sees traffic.
+          #    RLS returns 0 rows for the anon role; the query still
+          #    executes against Postgres and counts as activity.
+          q=$(curl -sS -o /dev/null -w '%{http_code}' \
+            -H "apikey: ${SUPABASE_ANON_KEY}" \
+            -H "Authorization: Bearer ${SUPABASE_ANON_KEY}" \
+            "${base}/rest/v1/progress?select=user_id&limit=1")
+          echo "REST progress query HTTP ${q}  (2xx/401/403 all mean the DB was reached)"
+
+      - name: Take a backup if the DB URL secret is set
+        id: backup
+        env:
+          SUPABASE_DB_URL: ${{ secrets.SUPABASE_DB_URL }}
+        run: |
+          set -euo pipefail
+          if [ -z "${SUPABASE_DB_URL:-}" ]; then
+            echo "SUPABASE_DB_URL not set; skipping backup (keep-alive still ran)."
+            echo "made=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          # Install a matching-major PostgreSQL client (Supabase is
+          # Postgres 15+; client 17 reads it fine). PGDG apt repo.
+          sudo sh -c 'echo "deb https://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
+          curl -fsSL https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/pgdg.gpg
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq postgresql-client-17
+
+          stamp=$(date -u +%Y%m%d-%H%M%S)
+          # Logical dump of the public schema: profiles, progress,
+          # admins, module_answers, module_order, certificates.
+          pg_dump "${SUPABASE_DB_URL}" \
+            --schema=public --no-owner --no-privileges \
+            --file="pinnacle-training-${stamp}.sql"
+          gzip "pinnacle-training-${stamp}.sql"
+          echo "made=true" >> "$GITHUB_OUTPUT"
+          echo "stamp=${stamp}" >> "$GITHUB_OUTPUT"
+          echo "Backup written: pinnacle-training-${stamp}.sql.gz"
+
+      - name: Upload the backup artifact
+        if: steps.backup.outputs.made == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: pinnacle-training-backup-${{ steps.backup.outputs.stamp }}
+          path: pinnacle-training-*.sql.gz
+          retention-days: 90
